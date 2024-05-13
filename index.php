@@ -57,7 +57,7 @@
         }
     }
 
-    // shuffle($matches);
+    shuffle($matches);
 
     ?>
 
