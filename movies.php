@@ -3,9 +3,11 @@
 class Person {
 
     private $id;
-    public $fname;
-    public $lname;
+    private $fname;
+    private $lname;
     private $salary;
+
+    const RACE = "Human";
 
     public function __construct($pId, $pFName, $pLName, $pSalary) {
         $this -> id = $pId;
@@ -30,8 +32,14 @@ class Person {
         return $this -> salary * $rate;
     }
 
+    public function displayHeading($tag) {
+        if (substr($this -> id, 0, 1) == "T") {
+            echo "<$tag>Titled Person</$tag>";
+        }
+    }
+
     public function __get($propertyRequested) {
-        if ($propertyRequested == "id" && $propertyRequested == "salary") {
+        if ($propertyRequested == "id") {
             return "You don't have permission to access id.";
         } else {
             return $this -> $propertyRequested;
@@ -39,11 +47,20 @@ class Person {
     }
 
     public function __set($propertyToModify, $value) {
-        if ($propertyToModify == "salary" && $value > $this -> salary) {
+        if ($propertyToModify == "salary" && $value < $this -> salary) {
             $this -> salary = $value;
         } else {
-            echo "Failed to modify" . $propertyToModify."<br>";
+            echo "Failed to modify " . $propertyToModify."<br>";
         }
+    }
+
+    public function __toString() {
+        return
+            "Race = " . self::RACE . 
+            "<br>Id = " . $this -> id . 
+            "<br>First Name = " . $this -> fname . 
+            "<br>Last Name = " . $this -> lname . 
+            "<br>Salary = " . $this -> salary;
     }
 
 }
