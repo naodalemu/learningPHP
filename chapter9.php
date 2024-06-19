@@ -1,11 +1,39 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PHP ID Card</title>
+</head>
+<body>
 
-include "movies.php";
-$mov1 = new Movie("N0001", "Lusso", 4.99);
-$mov2 = new Movie("N0002", "Junior", 5.99);
-$mov3 = new Movie("A0001", "Avatar", 10.99);
+    <?php
 
-echo $mov3 -> title."<br>";
-echo $mov3 -> nativeCurrencyPrice("Japan");
+        include "movies.php";
 
-echo $mov3->displayHeading('H1');
+        $person1 = new Person("P0001", "Naod", "Alemu", 2000);
+        $person2 = new Person("P0002", "Leti", "Tarekegn", 5000);
+        $person3 = new Person("P0003", "Beri", "Alemu", 10000);
+
+    ?>
+
+    <div class="card-container">
+
+        <div class="card">
+            <h2 class="name"><?= $person1 -> fname . " " . $person1 -> lname ?></h2>
+            <h3 class="salary">$<?= $person1 -> nativeSalary() ?></h3>
+        </div>
+        <div class="card">
+            <h2 class="name"><?= $person2 -> fname . " " . $person2 -> lname ?></h2>
+            <h3 class="salary">$<?= $person2 -> nativeSalary("Canada") ?></h3>
+        </div>
+        <div class="card">
+            <h2 class="name"><?= $person3 -> fname . " " . $person3 -> lname ?></h2>
+            <h3 class="salary">£<?= $person3 -> nativeSalary("UK") ?></h3>
+        </div>
+
+    </div>
+    
+</body>
+</html>

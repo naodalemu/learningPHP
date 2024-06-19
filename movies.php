@@ -1,37 +1,49 @@
-<?php
+<?php 
 
-class Movie {
+class Person {
+
     private $id;
-    public $title;
-    private $rentalPrice;
+    public $fname;
+    public $lname;
+    private $salary;
 
-    const DISCOUNT = 10;
-
-    public function __construct($pId, $pTitle, $pRentalPrice) {
+    public function __construct($pId, $pFName, $pLName, $pSalary) {
         $this -> id = $pId;
-        $this -> title = $pTitle;
-        $this -> rentalPrice = $pRentalPrice;
+        $this -> fname = $pFName;
+        $this -> lname = $pLName;
+        $this -> salary = $pSalary;
     }
 
-    public function nativeCurrencyPrice($country) {
+    public function nativeSalary($country = "USA") {
         $rate = 1;
-        switch($country){
-            case "UK":
-                $rate = 0.76;
-                break;
-            case "Japan":
-                $rate = 110;
-                break;
+
+        if ($country == "Japan") {
+            $rate = 110;
+        } else if ($country == "Canada") {
+            $rate = 0.9;
+        } else if ($country == "UK") {
+            $rate = 0.7;
+        } else if ($country == "USA") {
+            $rate = 1;
         }
 
-        return round($rate*$this->rentalPrice, 2);
+        return $this -> salary * $rate;
     }
 
-    public function displayHeading($tag) {
-        if (substr($this->id, 0, 1) == "N") {
-            return "<$tag>Movies</$tag>";
+    public function __get($propertyRequested) {
+        if ($propertyRequested == "id" && $propertyRequested == "salary") {
+            return "You don't have permission to access id.";
         } else {
-            return "<$tag>Award Winning Movies</$tag>";
+            return $this -> $propertyRequested;
         }
     }
+
+    public function __set($propertyToModify, $value) {
+        if ($propertyToModify == "salary" && $value > $this -> salary) {
+            $this -> salary = $value;
+        } else {
+            echo "Failed to modify" . $propertyToModify."<br>";
+        }
+    }
+
 }
